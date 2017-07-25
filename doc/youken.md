@@ -1,4 +1,5 @@
 <!-- coding: utf-8 -->
+<!-- vi: set expandtab sw=2 ts=2 -->
 # 要件定義書
 
 ## 機能
