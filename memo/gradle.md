@@ -14,3 +14,12 @@
     $ gradle init --type java-library
     ```
 
+## gradle run
+    * コンパイルしたjavaクラスの実行ができる便利コマンド
+    * 以下の2行をbuild.gradleに追記することで利用可能に
+
+    ```Gradle
+        apply plugin: 'application'
+        mainClassName = 'sample.HelloGradle'
+
+    ```
