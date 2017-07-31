@@ -11,7 +11,7 @@
         1. basic
     * javaプロジェクトを作るなら以下のコマンドでおｋ
 
-    ```Gradle
+    ```console
     $ gradle init --type java-library
     ```
 
@@ -19,7 +19,7 @@
     * コンパイルしたjavaクラスの実行ができる便利コマンド
     * 以下の2行をbuild.gradleに追記することで利用可能に
 
-    ```Gradle
+    ```console
         apply plugin: 'application'
         mainClassName = 'sample.HelloGradle'
 
