@@ -10,7 +10,8 @@
         1. java-library
         1. basic
     * javaプロジェクトを作るなら以下のコマンドでおｋ
-    ```console
+
+    ```Gradle
     $ gradle init --type java-library
     ```
 
