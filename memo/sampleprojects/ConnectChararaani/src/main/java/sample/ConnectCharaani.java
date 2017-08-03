@@ -17,7 +17,12 @@ class ConnectCharaani{
     public static void main(String[] args){
         try{
         // ログイン処理
-        Map <String, String> cookies = Jsoup.connect(ConnectCharaani.BASEURI)
+        Map <String, String> cookies = Jsoup.connect(ConnectCharaani.LOGINURI)
+            .header("Accept-Encoding", "gzip,deflate")
+            .header("Connection", "keep-alive")
+            .header("Host", "akb48.chara-ani.com")
+            .header("Upgrade-Insecure-Requests", "1")
+            .header("Refer", ConnectCharaani.BASEURI)
             .method(Method.GET)
             .execute()
             .cookies();
@@ -25,46 +30,52 @@ class ConnectCharaani{
         System.out.println(cookies);
         System.out.println(ConnectCharaani.BASEURI);
         Connection con = Jsoup.connect(ConnectCharaani.LOGINURI)
+            .header("Accept", "*/*")
+            .header("X-MicrosoftAjax", "Delta=true")
+            .header("Connection", "keep-alive")
+            .header("Refer", ConnectCharaani.LOGINURI)
+            .header("Accept-Encoding", "gzip, deflate, br")
+            .header("Content-Type", "application/x-www-form-urlencode")
             .data("ScriptManager1", "ScriptManager1|btnLogin")
-            .data("txID", "userID")
-            .data("txPASSWORD", "pass")
+            .data("txID", )
+            .data("txPASSWORD",)
             .data("btnLogin.x", "-612")
             .data("btnLogin.y", "-548")
-            .header("X-MicrosoftAjax", "Delta=true")
-            .header("Host", "akb48.chara-ani.com")
-            .header("Referer", "https://akb48.chara-ani.com/login.aspx")
-            .header("Accept-Encoding", "gzip, deflate, br")
-            .userAgent("Mozilla")
+            .cookies(cookies)
             .method(Method.POST);
         System.out.println("\n***Request headers***");
         System.out.println(con.request().headers());
+        System.out.println(con.request().cookies());
 
         Connection.Response response = con.execute();
         System.out.println("\n***Response headers***");
         System.out.println(response.headers());
         String sessionId = response.cookies().get("ASP.NET_SessionId");
+        // System.out.println("\n*********\n\n");
+        System.out.println(response.body());
         System.out.println(sessionId);
+        // cookies = response.cookies();
 
-        System.out.println(ConnectCharaani.HISTORYURI);
-        Connection history = Jsoup.connect(ConnectCharaani.HISTORYURI)
-            .header("Referer", "https://akb48.chara-ani.com/top.aspx")
-            .header("Host", "akb48.chara-ani.com")
-            .header("Accept-Encoding", "gzip, deflate, br")
-            .header("Cookie", "ASP.NET_SessionId=" + sessionId)
-            .cookie("ASP.NET_SessionId", sessionId)
-            .method(Method.GET);
+        // Connection history = Jsoup.connect(ConnectCharaani.BASEURI)
+        //     .header("Accept-Encoding", "gzip,deflate")
+        //     .header("Connection", "keep-alive")
+        //     .header("Host", "akb48.chara-ani.com")
+        //     .header("Upgrade-Insecure-Requests", "1")
+        //     .header("Refer", ConnectCharaani.LOGINURI)
+        //     .cookies(cookies)
+        //     .method(Method.GET);
 
-        System.out.println("\n***Request headers***");
-        System.out.println(history.request().headers());
-        System.out.println(history.request().cookies());
+        // System.out.println("\n***Request headers***");
+        // System.out.println(history.request().headers());
+        // System.out.println(history.request().cookies());
 
-        Connection.Response resHistory = history.execute();
-        System.out.println("\n***Response headers***");
-        System.out.println(resHistory.headers());
-        System.out.println(resHistory.cookies().get("ASP.NET_SessionId"));
+        // Connection.Response resHistory = history.execute();
+        // System.out.println("\n***Response headers***");
+        // System.out.println(resHistory.headers());
+        // System.out.println(resHistory.cookies().get("ASP.NET_SessionId"));
 
-        System.out.println("\n*********\n\n");
-        System.out.println(resHistory.body());
+        // System.out.println("\n*********\n\n");
+        // System.out.println(resHistory.body());
 
         }catch(IOException e) {
         System.out.println(e);
