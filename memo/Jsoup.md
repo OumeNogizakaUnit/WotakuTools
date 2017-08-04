@@ -8,10 +8,13 @@
 
 ## スクレイピング
 * 基本的にCSSセレクタを用いてほしい情報を抜き出す感じ
+* Connection.Elementもいい感じ
 
 ### CSSセレクタ
 * http://www.htmq.com/csskihon/005.shtml
 
+### Element
+* https://jsoup.org/apidocs/org/jsoup/nodes/Element.html
 ## ログインしたいね
 * http://blog.honjala.net/entry/blog/2015/01/15/post-248/
 
