@@ -5,3 +5,4 @@
 
 # 参考
 * https://github.com/gnocuil/charaani_order/blob/master/order.py
+  + これログイン成功してるやん
