@@ -6,80 +6,67 @@ import java.io.IOException;
 import java.util.*;
 
 import org.jsoup.*;
+import org.jsoup.select.*;
 import org.jsoup.nodes.*;
 import org.jsoup.Connection.*;
 
-class ConnectCharaani{
+public class ConnectCharaani{
+    private static String ID = "***";
+    private static String PW = "***";
+
     private static String BASEURI = "https://akb48.chara-ani.com/";
     private static String LOGINURI = BASEURI + "login.aspx";
     private static String HISTORYURI = BASEURI + "akb_history.aspx";
 
     public static void main(String[] args){
+        ConnectCharaani charaani = new ConnectCharaani();
         try{
+        // 必要な情報の取得
+        Connection.Response preResponse = Jsoup.connect(ConnectCharaani.LOGINURI)
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .method(Method.GET).execute();
+
+        Map <String, String> cookies = preResponse.cookies();
+        Map <String, String> hiddenData = charaani.findHiddenData(preResponse.parse());
+
         // ログイン処理
-        Map <String, String> cookies = Jsoup.connect(ConnectCharaani.LOGINURI)
-            .header("Accept-Encoding", "gzip,deflate")
-            .header("Connection", "keep-alive")
-            .header("Host", "akb48.chara-ani.com")
-            .header("Upgrade-Insecure-Requests", "1")
-            .header("Refer", ConnectCharaani.BASEURI)
-            .method(Method.GET)
-            .execute()
-            .cookies();
-
-        System.out.println(cookies);
-        System.out.println(ConnectCharaani.BASEURI);
         Connection con = Jsoup.connect(ConnectCharaani.LOGINURI)
-            .header("Accept", "*/*")
-            .header("X-MicrosoftAjax", "Delta=true")
-            .header("Connection", "keep-alive")
-            .header("Refer", ConnectCharaani.LOGINURI)
-            .header("Accept-Encoding", "gzip, deflate, br")
-            .header("Content-Type", "application/x-www-form-urlencode")
-            .data("ScriptManager1", "ScriptManager1|btnLogin")
-            .data("txID", )
-            .data("txPASSWORD",)
-            .data("btnLogin.x", "-612")
-            .data("btnLogin.y", "-548")
-            .cookies(cookies)
+            .header("User-Agent", "@IT java-tips URLConnection")
+            .header("Accept-Language", "ja")
+            .data(hiddenData)
+            .data("ScriptManager1", "ScriptManager1%7CbtnLogin")
+            .data("txID", ConnectCharaani.ID)
+            .data("txPASSWORD", ConnectCharaani.PW)
+            .data("btnLogin.x", "173")
+            .data("btnLogin.y", "30")
             .method(Method.POST);
-        System.out.println("\n***Request headers***");
-        System.out.println(con.request().headers());
-        System.out.println(con.request().cookies());
-
         Connection.Response response = con.execute();
-        System.out.println("\n***Response headers***");
-        System.out.println(response.headers());
-        String sessionId = response.cookies().get("ASP.NET_SessionId");
-        // System.out.println("\n*********\n\n");
-        System.out.println(response.body());
-        System.out.println(sessionId);
-        // cookies = response.cookies();
+        cookies = response.cookies();
 
-        // Connection history = Jsoup.connect(ConnectCharaani.BASEURI)
-        //     .header("Accept-Encoding", "gzip,deflate")
-        //     .header("Connection", "keep-alive")
-        //     .header("Host", "akb48.chara-ani.com")
-        //     .header("Upgrade-Insecure-Requests", "1")
-        //     .header("Refer", ConnectCharaani.LOGINURI)
-        //     .cookies(cookies)
-        //     .method(Method.GET);
+        Document doc = Jsoup.connect(ConnectCharaani.HISTORYURI)
+            .cookies(cookies)
+            .get();
 
-        // System.out.println("\n***Request headers***");
-        // System.out.println(history.request().headers());
-        // System.out.println(history.request().cookies());
-
-        // Connection.Response resHistory = history.execute();
-        // System.out.println("\n***Response headers***");
-        // System.out.println(resHistory.headers());
-        // System.out.println(resHistory.cookies().get("ASP.NET_SessionId"));
-
-        // System.out.println("\n*********\n\n");
-        // System.out.println(resHistory.body());
+        System.out.println(doc.html());
 
         }catch(IOException e) {
         System.out.println(e);
         }
+    }
+
+    private Map<String, String> findHiddenData(Document doc) {
+        Map<String, String> foundItems = new HashMap<String, String>();
+
+        Elements input = doc.getElementsByTag("input");
+        for(Element element : input) {
+            Elements hidden = element.getElementsByAttributeValue("type", "hidden");
+            for(Element e : hidden){
+                String name = e.attr("name");
+                String val = e.attr("value");
+                foundItems.put(name, val);
+            }
+        }
+        return foundItems;
     }
 
 }
