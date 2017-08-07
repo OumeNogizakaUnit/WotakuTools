@@ -11,6 +11,10 @@ import wotakutools.connect.Connect;
 public class ConnectCharaaniTest {
     @Test public void testInstance(){
         Connect con = new ConnectCharaani();
-        assertEquals(con.login("hoge","hoge"), 0);
+        try{
+        con.login("hoge", "hoge");
+        }catch(java.io.IOException e){
+        System.out.println(e.getMessage());
+        }
     }
 }

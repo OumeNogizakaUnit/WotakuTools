@@ -13,14 +13,18 @@ public abstract class Connect{
      * @param username ユーザー名もしくはユーザーID
      * @param password パスワード
      * @return ログイン処理に成功したら0 失敗したら1
+     * @throws java.io.IOException 接続失敗
      */
-    abstract public int login(String username, String password);
+    abstract public void login(String username, String password)
+        throws java.io.IOException;
     /**
      * 各サービスへの接続を行い、ページ情報を取得する
      * @author shun kawai
      * @param URI 接続を試みるURI
      * @return ページ情報
+     * @throws java.io.IOException 接続失敗
      */
-    abstract public org.jsoup.nodes.Document connect(String URI);
+    abstract public org.jsoup.nodes.Document connect(String URI)
+        throws java.io.IOException;
 }
 
