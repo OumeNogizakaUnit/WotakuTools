@@ -32,7 +32,6 @@ public class ConnectFortune
             .data("login_id", username)
             .data("login_pw", password)
             .data("submit", "ログイン")
-            .cookies(cookies)
             .method(Method.POST);
         Connection.Response response = con.execute();
         this.cookies = response.cookies();
