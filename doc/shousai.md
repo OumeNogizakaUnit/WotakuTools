@@ -17,7 +17,7 @@
 ### 内部データ構造
 
 |データ|データ名|型|詳細|
-|:-:|:-:|:-:|
+|:-:|:-:|:-:|:-:|
 |日時|date|java.time.LocaDateTime|年月日曜日|
 |開始時刻|startTime|java.time.LocalDateTime||
 |終了時刻|endTime|java.time.LocalDateTime||
