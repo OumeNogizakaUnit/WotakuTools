@@ -1,7 +1,7 @@
 package wotakutools.connect;
 /**
  * 某兄さんへアクセスするためのクラス
- * @author
+ * @author shun kawai
  */
 
 import wotakutools.connect.Connect;
