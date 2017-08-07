@@ -12,6 +12,8 @@ public class Tmpmain{
         Connect con = new ConnectCharaani();
         try{
         con.login("hoge", "hoge");
+        Document doc = con.connect(ConnectCharaani.HISTORYURI);
+        System.out.println(doc);
         }catch(java.io.IOException e){
             System.out.println(e);
         }
