@@ -12,7 +12,6 @@ public abstract class Connect{
      * @author shun kawai
      * @param username ユーザー名もしくはユーザーID
      * @param password パスワード
-     * @return ログイン処理に成功したら0 失敗したら1
      * @throws java.io.IOException 接続失敗
      */
     abstract public void login(String username, String password)
