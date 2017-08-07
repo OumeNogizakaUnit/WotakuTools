@@ -8,6 +8,8 @@
 
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
+apply plugin: 'application'
+mainClassName = 'wotakutools.Tmpmain'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -25,5 +27,8 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+
+    // jsoup
+    compile 'org.jsoup:jsoup:1.10.3'
 }
 
