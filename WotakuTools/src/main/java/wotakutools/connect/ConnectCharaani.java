@@ -19,20 +19,42 @@ import org.jsoup.Connection.*;
 public class ConnectCharaani
     extends wotakutools.connect.Connect {
 
-    static final String BASEURI = "https://akb48.chara-ani.cmo/";
-    static final String LOGINURI = BASEURI + "login.aspx";
+    public static final String BASEURI = "https://akb48.chara-ani.com/";
+    public static final String LOGINURI = BASEURI + "login.aspx";
+    public static final String HISTORYURI = BASEURI + "akb_history.aspx";
+    public static final String PURCHASEURI = BASEURI + "purchase_history.aspx";
+
+    private Map <String, String> cookies;
 
     @Override
     public void login(String username, String password)
         throws java.io.IOException{
-        throw new LoginFaild("Login fail");
-       
-    }
+        // 必要な情報の取得
+        Connection.Response preResponse = Jsoup.connect(ConnectCharaani.LOGINURI)
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .method(Method.GET).execute();
 
+        this.cookies = preResponse.cookies();
+        Map <String, String> hiddenData = this.findHiddenData(preResponse.parse());
+        // ログイン処理
+        Connection con = Jsoup.connect(ConnectCharaani.LOGINURI)
+            .header("Accept-Language", "ja")
+            .data(hiddenData)
+            .data("ScriptManager1", "ScriptManager1%7CbtnLogin")
+            .data("txID", username)
+            .data("txPASSWORD", password)
+            .data("btnLogin.x", "173")
+            .data("btnLogin.y", "30")
+            .method(Method.POST);
+        Connection.Response response = con.execute();
+        this.cookies = response.cookies();
+		}
     @Override
     public Document connect(String URI) 
         throws java.io.IOException{
-        return new Document("");
+        return Jsoup.connect(URI)
+            .cookies(this.cookies)
+            .get();
     }
     private Map<String, String> findHiddenData(Document doc){
         Map<String, String> foundItems = new HashMap<String, String>();
