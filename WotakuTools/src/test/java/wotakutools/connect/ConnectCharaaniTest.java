@@ -12,8 +12,9 @@ public class ConnectCharaaniTest {
     @Test public void testInstance(){
         Connect con = new ConnectCharaani();
         try{
-        con.login("hoge", "hoge");
-        }catch(java.io.IOException e){
+        int scode = con.login("hoge", "hoge");
+        assertTrue(scode == 200);
+        } catch(java.io.IOException e) {
         System.out.println(e.getMessage());
         }
     }

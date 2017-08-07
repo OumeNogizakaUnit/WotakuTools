@@ -27,7 +27,7 @@ public class ConnectCharaani
     private Map <String, String> cookies;
 
     @Override
-    public void login(String username, String password)
+    public int login(String username, String password)
         throws java.io.IOException{
         // 必要な情報の取得
         Connection.Response preResponse = Jsoup.connect(ConnectCharaani.LOGINURI)
@@ -48,6 +48,8 @@ public class ConnectCharaani
             .method(Method.POST);
         Connection.Response response = con.execute();
         this.cookies = response.cookies();
+
+        return response.statusCode();
 		}
     @Override
     public Document connect(String URI) 
