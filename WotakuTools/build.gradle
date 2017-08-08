@@ -11,6 +11,13 @@ apply plugin: 'java-library'
 apply plugin: 'application'
 mainClassName = 'wotakutools.Tmpmain'
 
+compileJava {
+		options.encoding = 'UTF-8'
+}
+javadoc {
+    options.encoding = "UTF-8"
+}
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.

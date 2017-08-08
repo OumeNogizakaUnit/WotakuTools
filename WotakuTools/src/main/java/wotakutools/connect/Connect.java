@@ -12,10 +12,11 @@ public abstract class Connect{
      * @author shun kawai
      * @param username ユーザー名もしくはユーザーID
      * @param password パスワード
-     * @return ログイン処理に成功したら0 失敗したら1
+     * @return ステータスコード
      * @throws java.io.IOException 接続失敗
+     * @throws wotakutools.connect.LoginFaild ログイン失敗
      */
-    abstract public void login(String username, String password)
+    abstract public int login(String username, String password)
         throws java.io.IOException;
     /**
      * 各サービスへの接続を行い、ページ情報を取得する

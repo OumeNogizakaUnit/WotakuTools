@@ -15,7 +15,6 @@ public class ConnectCharaaniTest {
         try{
         int sCode = con.login(SecretValue.Charaani.USER,SecretValue.Charaani.PASS);
         assertEquals(sCode, 200);
-
         }catch(java.io.IOException e){
         System.out.println(e.getMessage());
         }
