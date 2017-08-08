@@ -1,3 +1,6 @@
+/**
+ * coding: utf-8
+ */
 package wotakutools.connect;
 
 import org.jsoup.nodes.Document;
