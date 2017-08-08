@@ -14,7 +14,7 @@ public abstract class Connect{
      * @param password パスワード
      * @return ステータスコード
      * @throws java.io.IOException 接続失敗
-     * @throws wotakutools.connect.LoginFaild
+     * @throws wotakutools.connect.LoginFaild ログイン失敗
      */
     abstract public int login(String username, String password)
         throws java.io.IOException;
