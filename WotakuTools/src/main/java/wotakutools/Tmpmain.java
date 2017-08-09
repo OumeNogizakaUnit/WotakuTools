@@ -3,6 +3,7 @@ package wotakutools;
 import wotakutools.connect.ConnectFortune;
 import wotakutools.connect.ConnectCharaani;
 import wotakutools.connect.Connect;
+import wotakutools.SecretValue;
 
 import org.jsoup.*;
 import org.jsoup.nodes.*;
@@ -15,16 +16,16 @@ public class Tmpmain{
 
         con = new ConnectCharaani();
         try{
-        con.login("hoge", "hoge");
+        con.login(SecretValue.Charaani.USER,SecretValue.Charaani.PASS);
         doc = con.connect(ConnectCharaani.HISTORYURI);
-        //System.out.println(doc);
+        System.out.println(doc);
         }catch(java.io.IOException e){
             System.out.println(e);
         }
 
         con = new ConnectFortune();
         try{
-        con.login("hoge", "hoge");
+        con.login(SecretValue.Fortune.USER,SecretValue.Fortune.PASS);
         doc = con.connect(ConnectFortune.MYPAGEURI);
         //System.out.println(doc);
         }catch(java.io.IOException e){
