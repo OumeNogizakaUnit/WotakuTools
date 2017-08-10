@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.*;
 
 import org.jsoup.*;
+import org.jsoup.select.*;
 import org.jsoup.nodes.*;
 import org.jsoup.Connection.*;
 
@@ -26,7 +27,8 @@ public class ConnectFortune
 
     @Override
     public int login(String username, String password)
-        throws java.io.IOException {
+        throws java.io.IOException,
+               wotakutools.connect.ConnectException{
         // ログイン処理
         Connection con = Jsoup.connect(ConnectFortune.LOGINURI)
             .data("login_id", username)
@@ -35,6 +37,8 @@ public class ConnectFortune
             .method(Method.POST);
         Connection.Response response = con.execute();
         this.cookies = response.cookies();
+        if(this.loginCheck() == false)
+            throw new LoginFaild("Bad username or password");
         return response.statusCode();
     }
 
@@ -44,5 +48,17 @@ public class ConnectFortune
         return Jsoup.connect(URI)
             .cookies(this.cookies)
             .get();
+    }
+
+    private boolean loginCheck()
+        throws java.io.IOException{
+        Document doc = this.connect(ConnectFortune.BASEURI);
+        Elements navis = doc.getElementsByAttributeValue("id", "globalNav");
+        Element navi = navis.get(0);
+        Elements forms = navi.getElementsByTag("form");
+
+        if(forms.size() == 1)
+            return true;
+        return false;
     }
 }
