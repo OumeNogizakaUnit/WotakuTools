@@ -1,4 +1,6 @@
 package wotakutools;
+// coding: utf-8
+// vi: set expandtab sw=4 ts=4 :
 
 import wotakutools.connect.ConnectFortune;
 import wotakutools.connect.ConnectCharaani;

@@ -1,4 +1,6 @@
 package wotakutools.connect;
+// coding: utf-8
+// vi: set expandtab sw=4 ts=4 :
 /**
  * 某tuneへアクセスするためのクラス
  * @author shun kawai
