@@ -17,8 +17,8 @@ public class Tmpmain{
         con = new ConnectCharaani();
         try{
         con.login(SecretValue.Charaani.USER,SecretValue.Charaani.PASS);
-        doc = con.connect(ConnectCharaani.HISTORYURI);
-        System.out.println(doc);
+        doc = con.connect(ConnectCharaani.BASEURI);
+        // System.out.println(doc);
         }catch(java.io.IOException e){
             System.out.println(e);
         }
