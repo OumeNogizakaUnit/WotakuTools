@@ -21,6 +21,7 @@ public class ConnectCharaani
 
     public static final String BASEURI = "https://akb48.chara-ani.com/";
     public static final String LOGINURI = BASEURI + "login.aspx";
+    public static final String LOGOUTURI = BASEURI + "logout.aspx";
     public static final String HISTORYURI = BASEURI + "akb_history.aspx";
     public static final String PURCHASEURI = BASEURI + "purchase_history.aspx";
 
@@ -28,7 +29,7 @@ public class ConnectCharaani
 
     @Override
     public int login(String username, String password)
-        throws java.io.IOException{
+        throws java.io.IOException, wotakutools.connect.ConnectException{
         // 必要な情報の取得
         Connection.Response preResponse = Jsoup.connect(ConnectCharaani.LOGINURI)
             .header("Content-Type", "application/x-www-form-urlencoded")
@@ -48,6 +49,9 @@ public class ConnectCharaani
             .method(Method.POST);
         Connection.Response response = con.execute();
         this.cookies = response.cookies();
+
+        if(this.loginCheck() == false)
+            throw new LoginFaild("Bad username or password");
 
         return response.statusCode();
 		}
@@ -71,5 +75,19 @@ public class ConnectCharaani
             }
         }
         return foundItems;
+    }
+
+    private boolean loginCheck() 
+        throws java.io.IOException{
+        Document doc = this.connect(ConnectCharaani.BASEURI);
+        Elements navis = doc.getElementsByAttributeValue("id", "nav_l_inner_r");
+        Element navi = navis.get(0);
+        Elements as = navi.getElementsByAttributeValue("href", ConnectCharaani.LOGOUTURI);
+        as = navi.getElementsByTag("a");
+        for(Element a : as)
+            if(a.text() == "ログアウト")
+                return true;
+
+        return false;
     }
 }

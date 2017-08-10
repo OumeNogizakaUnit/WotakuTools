@@ -1,6 +1,6 @@
 package wotakutools.connect;
 
-public class ConnectException extends java.io.IOException{
+class ConnectException extends java.io.IOException{
     public ConnectException(String str){
         super(str);
     }
