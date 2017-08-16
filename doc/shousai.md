@@ -18,7 +18,7 @@
 
 |データ|データ名|型|詳細|
 |:-:|:-:|:-:|:-:|
-|日時|date|java.time.LocaDateTime|年月日曜日|
+|日時|date|java.time.LocalDateTime|年月日曜日|
 |開始時刻|startTime|java.time.LocalDateTime||
 |終了時刻|endTime|java.time.LocalDateTime||
 |メンバー名|member|String|姓名間の空白はなしで統一|
