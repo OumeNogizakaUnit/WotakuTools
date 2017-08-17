@@ -87,6 +87,43 @@ javadocを生成する。
 生成されたjavadocは`WotakuTools/build/docs/javadoc/index.html`をブラウザで開くと閲覧できる。  
 javadocのコメントの書き方はぐぐってくれ
 
+
+## ディレクトリ構成
+
+```console
+WotakuTools
+├── LICENSE
+├── README.md
+├── WotakuTools           --- アプリケーション本体
+│   ├── build
+│   │   ├── docs
+│   │   │   └── javadoc   --- javadoc
+│   │   ├── libs
+│   │   ├── reports
+│   │   │   └── tests
+│   │   │       └── test  --- gradle test実行時のレポートが保存されている
+│   │   ├── scripts
+│   │   ├── test-results
+│   │   └── tmp
+│   ├── build.gradle      --- gradle の設定ファイル
+│   ├── gradle
+│   ├── gradlew
+│   ├── gradlew.bat
+│   ├── settings.gradle
+│   └── src
+│       ├── main
+│       │   └── java
+│       │       └── wotakutools   --- コード本体
+│       └── test
+│           └── java
+│               └── wotakutools   --- テストコード
+├── doc
+│   ├── shousai.md
+│   └── youken.md
+└── memo      --- 自分の勉強用に試したプロジェクトや、メモがたくさん
+```
+
+
 ## [要件定義書](./doc/youken.md)
 
 ## [詳細設計書](./doc/shousai.md)
