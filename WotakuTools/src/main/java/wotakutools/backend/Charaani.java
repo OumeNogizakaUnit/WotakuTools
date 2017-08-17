@@ -78,11 +78,53 @@ public class Charaani
             throw new LoginFaild("Connect faild login page. Please call login");
 
         Document doc = this.connect(Charaani.PURCHASEURI);
+
+        ArrayList<BackendDataObject> dataList = new ArrayList<BackendDataObject>();
+
+        Elements footer = doc.getElementsByClass("purchase_table_footer_l_wait");
         Elements tables = doc.getElementsByClass("purchase_table");
-        for(Element table : tables){
-            System.out.println(table + "\n\n");
+        for(int i = 0; i < tables.size(); i++){
+            Element table = tables.get(i);
+            Element status = footer.get(i);
+            System.out.println(status.text().equals("出荷待ち") || status.text().equals("出荷済"));
+            /* 支払い忘れのキャンセルに対応 */
+            if((status.text().equals("出荷待ち") || status.text().equals("出荷済")) == false)
+                continue;
+            Elements trs = table.getElementsByTag("tr");
+            /*
+             * 0. 申し込み日時 オーダーID
+             * 1. 申込者名
+             * 2. お届け先住所
+             * 3. ヘッダー
+             */
+            Element user = trs.get(1).getElementsByTag("td").get(0);
+            System.out.println(user.text());
+            for(int j = 4; j < trs.size(); j++){
+                Element tr = trs.get(j);
+                BackendDataObject data = this.convertEntryToBackendObj(tr);
+                dataList.add(data);
+            }
         }
-        return new ArrayList<BackendDataObject>();
+        return dataList;
+    }
+
+    private BackendDataObject convertEntryToBackendObj(Element entry){
+        BackendDataObject data = new BackendDataObject();
+        /**
+         * 想定するエントリーのデータ
+         * <tr> 
+         *   <td colspan="4" class="text">11/18(土)横浜 中井りか 第5部【ご来場認定カード】 AKB48 49thSg「タイトル未定」【劇場盤】</td> 
+         *   <td class="num">2個</td> 
+         * </tr>
+         *   
+         */
+        Element num = entry.getElementsByClass("num").get(0);
+        Element text = entry.getElementsByClass("text").get(0);
+        data.num = Integer.valueOf(num.text().substring(0, num.text().length()-1));
+        System.out.println(entry.text());
+        System.out.println(data.num);
+
+        return data;
     }
 
     private Map<String, String> findHiddenData(Document doc){
