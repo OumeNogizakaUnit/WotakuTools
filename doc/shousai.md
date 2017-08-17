@@ -27,3 +27,8 @@
 |枚数|num|int||
 |単価|value|int||
 |当落|result|int|0: 当選 1: 落選 2: 抽選中|
+|購入者名|user|String||
+|会場名|place|String||
+|アーティスト名|artist|String|AKBとか|
+|CDタイトル|title|String|タイトル未定はnull|
+|リリース番号|release|int|〇〇thの番号|
