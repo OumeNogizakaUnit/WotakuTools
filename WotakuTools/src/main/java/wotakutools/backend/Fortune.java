@@ -2,6 +2,7 @@ package wotakutools.backend;
 // coding: utf-8
 // vi: set expandtab sw=4 ts=4 :
 import wotakutools.backend.Backend;
+import wotakutools.backend.BackendDataObject;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class Fortune
     @Override
     public int login(String username, String password)
         throws java.io.IOException,
-               wotakutools.backend.BackendException{
+               wotakutools.backend.LoginFaild{
         // ログイン処理
         Connection con = Jsoup.connect(Fortune.LOGINURI)
             .data("login_id", username)
@@ -48,6 +49,12 @@ public class Fortune
         return Jsoup.connect(URI)
             .cookies(this.cookies)
             .get();
+    }
+
+    @Override
+    public ArrayList<BackendDataObject> scrap()
+        throws java.io.IOException, wotakutools.backend.LoginFaild{
+        return new ArrayList<BackendDataObject>();
     }
 
     private boolean loginCheck()

@@ -3,6 +3,7 @@ package wotakutools.backend;
 // vi: set expandtab sw=4 ts=4 :
 
 import wotakutools.backend.Backend;
+import wotakutools.backend.BackendDataObject;
 
 import java.util.*;
 
@@ -20,17 +21,22 @@ import org.jsoup.Connection.*;
 public class Charaani
     extends wotakutools.backend.Backend {
 
+    /** トップページのURL */
     public static final String BASEURI = "https://akb48.chara-ani.com/";
+    /** ログインページのURL */
     public static final String LOGINURI = BASEURI + "login.aspx";
+    /** ログアウトページのURL */
     public static final String LOGOUTURI = BASEURI + "logout.aspx";
+    /** 申し込み履歴ページのURL */
     public static final String HISTORYURI = BASEURI + "akb_history.aspx";
+    /** 購入履歴ページのURL */
     public static final String PURCHASEURI = BASEURI + "purchase_history.aspx";
 
     private Map <String, String> cookies;
 
     @Override
     public int login(String username, String password)
-        throws java.io.IOException, wotakutools.backend.BackendException{
+        throws java.io.IOException, wotakutools.backend.LoginFaild{
         System.out.println(username + ", " + password);
         // 必要な情報の取得
         Connection.Response preResponse = Jsoup.connect(Charaani.LOGINURI)
@@ -64,6 +70,21 @@ public class Charaani
             .cookies(this.cookies)
             .get();
     }
+
+    @Override
+    public ArrayList<BackendDataObject> scrap()
+        throws java.io.IOException, wotakutools.backend.LoginFaild{
+        if(this.loginCheck() == false)
+            throw new LoginFaild("Connect faild login page. Please call login");
+
+        Document doc = this.connect(Charaani.PURCHASEURI);
+        Elements tables = doc.getElementsByClass("purchase_table");
+        for(Element table : tables){
+            System.out.println(table + "\n\n");
+        }
+        return new ArrayList<BackendDataObject>();
+    }
+
     private Map<String, String> findHiddenData(Document doc){
         Map<String, String> foundItems = new HashMap<String, String>();
 

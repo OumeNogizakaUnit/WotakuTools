@@ -15,12 +15,35 @@ public class BackendDataObject {
     public LocalDateTime statrTime;
     /** 終了時刻 */
     public LocalDateTime endTime;
-    /** 部 */
+    /** 部 <br>
+     *  ステージイベントは0とする
+     * */
     public int bu;
+    /** メンバー */
     public String member;
+    /**
+     *  詳細<br>
+     *  デフォルトは通常握手
+     */
     public String detail;
+    /** 枚数 */
     public int num;
+    /** 単価 */
     public int value;
+    /** 
+     * 当落 
+     */
     public int result;
 
+    /** 当選 */
+    public static final int WIN = 0;
+    /** 落選 */
+    public static final int LOSE = 1;
+    /** 抽選中 */
+    public static final int DRAW = 2;
+
+    public BackendDataObject(){
+        this.detail = "通常握手";
+        this.value = BackendDataObject.DRAW;
+    }
 }

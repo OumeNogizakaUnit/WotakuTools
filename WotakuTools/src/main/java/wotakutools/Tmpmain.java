@@ -5,6 +5,8 @@ package wotakutools;
 import wotakutools.backend.*;
 import wotakutools.SecretValue;
 
+import java.util.*;
+
 import org.jsoup.*;
 import org.jsoup.nodes.*;
 
@@ -17,7 +19,8 @@ public class Tmpmain{
         con = new Charaani();
         try{
         con.login(SecretValue.Charaani.USER,SecretValue.Charaani.PASS);
-        doc = con.connect(Charaani.BASEURI);
+        ArrayList<BackendDataObject> data = con.scrap();
+        System.out.println(data);
         //System.out.println(doc);
         }catch(java.io.IOException e){
             System.out.println(e);
