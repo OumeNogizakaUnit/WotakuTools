@@ -15,7 +15,8 @@ compileJava {
 		options.encoding = 'UTF-8'
 }
 javadoc {
-    options.encoding = "UTF-8"
+    options.encoding = 'UTF-8'
+    options.charSet = 'UTF-8'
 }
 
 // In this section you declare where to find the dependencies of your project
