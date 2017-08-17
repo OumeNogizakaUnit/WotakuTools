@@ -42,8 +42,33 @@ public class BackendDataObject {
     /** 抽選中 */
     public static final int DRAW = 2;
 
+    /** 購入者名 */
+    public String user;
+    /** 会場名 */
+    public String place;
+    /** アーティスト名 */
+    public String artist;
+    /** CDタイトル */
+    public String title;
+    /** リリース番号 */
+    public int release;
+
     public BackendDataObject(){
         this.detail = "通常握手";
-        this.value = BackendDataObject.DRAW;
+        this.result = BackendDataObject.DRAW;
+    }
+    /**
+     * 当落の状態を当選にする
+     * @author shun kawai
+     */
+    public void win(){
+        this.result = BackendDataObject.WIN;
+    }
+    /**
+     * 当落の状態を落選にする
+     * @author shun kawai
+     */
+    public void lose(){
+        this.result = BackendDataObject.LOSE;
     }
 }
