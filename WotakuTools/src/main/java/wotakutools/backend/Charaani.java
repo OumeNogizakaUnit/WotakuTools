@@ -6,6 +6,9 @@ import wotakutools.backend.Backend;
 import wotakutools.backend.BackendDataObject;
 
 import java.util.*;
+import java.util.regex.*;
+
+import java.time.*;
 
 import java.io.IOException;
 
@@ -124,7 +127,23 @@ public class Charaani
         System.out.println(entry.text());
         System.out.println(data.num);
 
+        String str = text.text();
+        String[] items = str.split(" ", 0);
+
+        Matcher m = this.patternMatchRegex(items[0], "(\\d+).(\\d+)(...)(.+)");
+        if(m.find()){
+            int month = Integer.parseInt(m.group(1));
+            int date = Integer.parseInt(m.group(2));
+            data.date = LocalDateTime.of(2017, month, date, 0, 0);
+        }
+        data.place = m.group(4);
+
         return data;
+    }
+
+    private Matcher patternMatchRegex(String str, String regex){
+        Pattern p = Pattern.compile(regex);
+        return p.matcher(str);
     }
 
     private Map<String, String> findHiddenData(Document doc){

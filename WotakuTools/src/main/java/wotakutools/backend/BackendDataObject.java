@@ -56,6 +56,7 @@ public class BackendDataObject {
     public BackendDataObject(){
         this.detail = "通常握手";
         this.result = BackendDataObject.DRAW;
+        this.date = LocalDateTime.now();
     }
     /**
      * 当落の状態を当選にする
@@ -70,5 +71,13 @@ public class BackendDataObject {
      */
     public void lose(){
         this.result = BackendDataObject.LOSE;
+    }
+
+    @Override
+    public String toString(){
+        String str = "";
+        str += "日時 : " +  date.getMonthValue() + "/" + date.getDayOfMonth() + ", ";
+        str += "種類 : " + member + " " + bu + "部 " + num + "枚";
+        return str;
     }
 }
