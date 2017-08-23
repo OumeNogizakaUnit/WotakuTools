@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.regex.*;
 
 import java.time.*;
+import java.time.format.*;
 
 import java.io.IOException;
 
@@ -100,19 +101,27 @@ public class Charaani
              * 2. お届け先住所
              * 3. ヘッダー
              */
+
+            /*申し込み日時から握手会開催日時(主に年)を求める*/
+            String  strOrderDate = trs.get(0).getElementsByTag("td").get(1).text();
+            DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+            LocalDateTime orderDate = LocalDateTime.parse(strOrderDate, f);
+            System.out.println(orderDate);
+            
             Element user = trs.get(1).getElementsByTag("td").get(0);
             System.out.println(user.text());
             for(int j = 4; j < trs.size(); j++){
                 Element tr = trs.get(j);
-                BackendDataObject data = this.convertEntryToBackendObj(tr);
+                BackendDataObject data = this.convertEntryToBackendObj(tr, orderDate);
                 dataList.add(data);
             }
         }
         return dataList;
     }
 
-    private BackendDataObject convertEntryToBackendObj(Element entry){
+    private BackendDataObject convertEntryToBackendObj(Element entry, LocalDateTime orderDate){
         BackendDataObject data = new BackendDataObject();
+        data.orderDate = orderDate;
         /**
          * 想定するエントリーのデータ
          * <tr> 
@@ -133,8 +142,8 @@ public class Charaani
         Matcher m = this.patternMatchRegex(items[0], "(\\d+).(\\d+)(...)(.+)");
         if(m.find()){
             int month = Integer.parseInt(m.group(1));
-            int date = Integer.parseInt(m.group(2));
-            data.date = LocalDateTime.of(2017, month, date, 0, 0);
+            int day = Integer.parseInt(m.group(2));
+            data.date = data.getLocalDateTime(month, day);
         }
         data.place = m.group(4);
 

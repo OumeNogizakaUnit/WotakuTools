@@ -15,6 +15,8 @@ public class BackendDataObject {
     public LocalDateTime statrTime;
     /** 終了時刻 */
     public LocalDateTime endTime;
+    /** 申し込み日時 */
+    public LocalDateTime orderDate;
     /** 部 <br>
      *  ステージイベントは0とする
      * */
@@ -71,6 +73,18 @@ public class BackendDataObject {
      */
     public void lose(){
         this.result = BackendDataObject.LOSE;
+    }
+    /**
+     * 月日からLocalDateTimeを生成する。
+     * 年はorderDateを比較して計算する。
+     * @param month 月
+     * @param day 日
+     * @return 申し込み日時を考慮し、年を追加したLocalDateTime
+     * @author shun kawai
+     */
+    public LocalDateTime getLocalDateTime(int month, int day){
+        // FIXME
+        return LocalDateTime.of(2017, month, day, 0, 0);
     }
 
     @Override
