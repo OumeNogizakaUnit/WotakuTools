@@ -16,6 +16,7 @@ public class Tmpmain{
         Backend con;
         Document doc;
 
+        System.out.println("おはよう");
         con = new Charaani();
         try{
         con.login(SecretValue.Charaani.USER,SecretValue.Charaani.PASS);
