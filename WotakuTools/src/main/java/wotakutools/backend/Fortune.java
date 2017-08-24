@@ -54,6 +54,7 @@ public class Fortune
     @Override
     public ArrayList<BackendDataObject> scrap()
         throws java.io.IOException, wotakutools.backend.LoginFaild{
+            // FIXME
         return new ArrayList<BackendDataObject>();
     }
 
