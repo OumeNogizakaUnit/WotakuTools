@@ -83,6 +83,7 @@ public class Charaani
 
         Document doc = this.connect(Charaani.PURCHASEURI);
 
+
         ArrayList<BackendDataObject> dataList = new ArrayList<BackendDataObject>();
 
         Elements footer = doc.getElementsByClass("purchase_table_footer_l_wait");
@@ -116,6 +117,8 @@ public class Charaani
                 dataList.add(data);
             }
         }
+
+        doc = this.connectNextPage(doc);
         return dataList;
     }
 

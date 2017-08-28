@@ -85,7 +85,7 @@ public class BackendDataObject {
     public LocalDateTime getLocalDateTime(int month, int day){
         LocalDateTime date = LocalDateTime.of(orderDate.getYear(), month, day, 0, 0);
         if (date.isBefore(orderDate)){
-            date.plusYears(1);
+            date = date.plusYears(1);
         }
         return date;
     }
