@@ -119,6 +119,10 @@ public class Charaani
         return dataList;
     }
 
+    public Document connectNextPage(Document nowPage) {
+        return nowPage;
+    }
+
     private BackendDataObject convertEntryToBackendObj(Element entry, LocalDateTime orderDate){
         BackendDataObject data = new BackendDataObject();
         data.orderDate = orderDate;
