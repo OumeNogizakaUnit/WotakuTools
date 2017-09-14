@@ -5,6 +5,6 @@ import wotakutools.view.WotakuToolsFrame;
 
 public class Tmpmain{
     public static void main(String[] args){
-        WotakuToolsFrame f = new WotakuToolsFrame();
+        new WotakuToolsFrame();
     }
 }
