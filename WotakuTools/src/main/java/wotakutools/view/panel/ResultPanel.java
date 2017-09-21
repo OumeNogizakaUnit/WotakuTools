@@ -23,12 +23,12 @@ public class ResultPanel extends JPanel{
         System.out.println("Called switchCharaanPanel()");
         this.removeAll();
         this.add(new ResultCharaaniPanel());
-        this.repaint();
+        this.validate();
     }
     public void switchFortunePanel(){
         System.out.println("Called switchFortunePanel()");
         this.removeAll();
         this.add(new ResultFortunePanel());
-        this.repaint();
+        this.validate();
     }
 }
