@@ -83,14 +83,17 @@ public class BackendDataObject {
      * @author shun kawai
      */
     public LocalDateTime getLocalDateTime(int month, int day){
-        // FIXME
-        return LocalDateTime.of(2017, month, day, 0, 0);
+        LocalDateTime date = LocalDateTime.of(orderDate.getYear(), month, day, 0, 0);
+        if (date.isBefore(orderDate)){
+            date = date.plusYears(1);
+        }
+        return date;
     }
 
     @Override
     public String toString(){
         String str = "";
-        str += "日時 : " +  date.getMonthValue() + "/" + date.getDayOfMonth() + ", ";
+        str += "日時 : " + date.getYear() + "/" +  date.getMonthValue() + "/" + date.getDayOfMonth() + ", ";
         str += "種類 : " + member + " " + bu + "部 " + num + "枚";
         return str;
     }

@@ -1,4 +1,9 @@
-.gradle/*
-build/*
-gradle/*
+.gradle/**
+bin/**
+build/**
+gradle/**
 tags
+.classpath
+.project
+.settings/
+/wotakutools
